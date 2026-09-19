@@ -88,6 +88,11 @@
     color:var(--gold);font-weight:700;margin-bottom:4px;
   }
   h2.figure{font-family:var(--serif);font-size:26px;margin:0 0 14px;color:var(--navy);}
+  .station-img{
+    display:block;width:100%;height:170px;object-fit:cover;
+    border-radius:12px;margin:0 0 16px;border:1px solid #e3ddce;
+    background:var(--cream);
+  }
   .ref{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--navy);margin:0 0 6px;}
   .context{color:var(--grey);font-size:15px;margin:0 0 18px;font-style:italic;}
 
@@ -218,6 +223,7 @@ const BLOCKS   = [1,2,3,4,5,6,7,8];
 const STATIONS = [
   {
     figure:"Abraham",
+    image:"",   // optional illustration: a file path like "images/abraham.jpg" or a full URL. Blank = no image. See README.
     ref:"Genesis 22:1–2",
     context:"God calls, and Abraham answers, “Here am I.”",
     gatePrompt:"Copy the missing word (Genesis 22:2): “…go to the land of ____, and offer him there…”",
@@ -228,6 +234,7 @@ const STATIONS = [
   },
   {
     figure:"Moses",
+    image:"",   // e.g. "images/moses.jpg"
     ref:"Exodus 32:11–14",
     context:"The people have sinned. Moses begs God to spare them.",
     gatePrompt:"Copy the missing word (Exodus 32:11): “…whom you brought forth out of the land of ____…”",
@@ -238,6 +245,7 @@ const STATIONS = [
   },
   {
     figure:"David",
+    image:"",   // e.g. "images/david.jpg"
     ref:"Psalm 51:1–4",
     context:"David has sinned, and cries out to God.",
     gatePrompt:"Copy the missing word (Psalm 51:1): “Have ____ on me, O God, according to your steadfast love…”",
@@ -248,6 +256,7 @@ const STATIONS = [
   },
   {
     figure:"Jonah",
+    image:"",   // e.g. "images/jonah.jpg"
     keystone:true,
     ref:"Jonah 2:1–2, 9",
     context:"Jonah prays from inside the great fish.",
@@ -259,6 +268,7 @@ const STATIONS = [
   },
   {
     figure:"The Shema",
+    image:"",   // e.g. "images/shema.jpg"
     ref:"Deuteronomy 6:4–5",
     context:"The prayer Israel prayed every single day.",
     gatePrompt:"Copy the missing word (Deuteronomy 6:4): “Hear, O Israel: the Lord our God, the Lord is ____.”",
@@ -428,6 +438,7 @@ function stationScreen(idx){
   card.innerHTML = `
     <div class="station-label">Station ${idx+1} of ${TOTAL}${s.keystone?" &middot; Keystone":""}</div>
     <h2 class="figure">${esc(s.figure)}</h2>
+    ${s.image?`<img class="station-img" src="${esc(s.image)}" alt="${esc(s.figure)}" onerror="this.remove()">`:""}
 
     <!-- STEP 1 : find & copy the gate word -->
     <div class="step ${(!state.gatePassed)?'active':''}" id="gateStep">

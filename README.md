@@ -93,6 +93,43 @@ no account for students, no cost.** Do this once.
 
 ---
 
+## Adding an illustration to each station
+
+Each station can show a picture (artwork of Abraham, Moses, etc.) on its card. It's optional —
+leave it blank and the card just shows text. If an image path is wrong or won't load, the app
+hides it automatically, so a mistake never breaks the station.
+
+**Easiest way (recommended): an `images/` folder in the repo**
+
+1. Find or make 5 images (JPG or PNG). Landscape works best; ~800–1200px wide keeps them sharp
+   without being huge. Good free sources: [Wikimedia Commons](https://commons.wikimedia.org)
+   (classic paintings of these scenes are public domain), [Unsplash](https://unsplash.com), or
+   [Pexels](https://pexels.com). Keep each file under ~1 MB so phones load fast.
+2. In this repo, create a folder called **`images`** and put the files in it. Name them simply,
+   e.g. `abraham.jpg`, `moses.jpg`, `david.jpg`, `jonah.jpg`, `shema.jpg`.
+   (On GitHub you can do this in the browser: **Add file ▸ Upload files**, then type
+   `images/` in front of the filename to create the folder.)
+3. In `index.html`, find each station's `image:""` line in the settings block and fill in the
+   path:
+   ```js
+   figure:"Abraham",
+   image:"images/abraham.jpg",
+   ```
+4. Save/push. Done — the picture shows at the top of that station's card.
+
+**Alternatives**
+- **Paste a web link:** set `image:"https://…/picture.jpg"` to a directly-hosted image URL.
+  (Note: ordinary Google Drive/Photos "share" links usually *don't* work as direct image URLs.)
+- **Embed it in the file (no folder needed):** convert an image to a "data URI" at a site like
+  [base64-image.de](https://www.base64-image.de/), then paste the whole `data:image/...` string
+  as the `image` value. This keeps everything in the single `index.html`, but makes the file
+  large — fine for one or two small images.
+
+Sizing/shape is handled for you (each image is shown in a rounded 170px-tall banner, cropped to
+fit), so images of different dimensions still look consistent.
+
+---
+
 ## Reset control
 
 A **hidden long-press** target sits in the bottom-left corner. Press and hold ~1 second and a
