@@ -8,14 +8,13 @@ At the start each student picks their **teacher** (Lastres, Mackle, Vazquez), th
 (1–8), and types their **name**. Then they work through **5 Bible stations in a fixed order**;
 each must be completed correctly before the next unlocks:
 
-1. **Find the verse** (reference + one-line context)
-2. **Post a photo** of the open Bible to Showbie (reminder text, not enforced)
-3. **Type a justification** (saved and sent to your Google Sheet)
-4. **Gate word** — type a specific word from the verse (case-insensitive, punctuation ignored, unlimited retries)
-5. **ACTS choice** — tap the type of prayer
+1. **Find the verse** (reference + one-line context) and **post a photo** of the open Bible to Showbie
+2. **Gate word** — copy a word *straight from the verse* (the prompt quotes the line with one word blanked out, so they can't answer from memory). Case-insensitive, punctuation ignored, unlimited retries.
+3. **ACTS choice** — tap the type of prayer
+4. **Justification** — after they get ACTS right, they type a one-sentence justification; submitting it **unlocks the next clue**
 
-When a student finishes all 5, their results are sent **once** to your Google Sheet.
-Progress is saved on the phone (`localStorage`), so a refresh keeps their place.
+Justifications and stats are saved on the phone and sent **once** to your Google Sheet when the
+student finishes all 5. Progress is saved (`localStorage`), so a refresh keeps their place.
 
 ---
 
@@ -24,16 +23,21 @@ Progress is saved on the phone (`localStorage`), so a refresh keeps their place.
 The 5 gate words must match your **class RSV-2CE Bible**. Open `index.html` and check
 the `STATIONS` array near the top (clearly commented):
 
-| Station | Reference | Gate word | ACTS answer |
-|---|---|---|---|
-| 1 · Abraham | Genesis 22:1–2 | `Isaac` | Adoration |
-| 2 · Moses | Exodus 32:11–14 | `Egypt` | Supplication |
-| 3 · David | Psalm 51:1–4 | `mercy` | Contrition |
-| 4 · Jonah (keystone) | Jonah 2:1–2, 9 | `Lord` | Thanksgiving + Supplication |
-| 5 · The Shema | Deuteronomy 6:4–5 | `one` | Adoration **or** "It doesn't fit neatly" |
+Each gate word is now a word the student **copies straight from the verse** (the prompt quotes
+the line with one word blanked out):
 
-To edit a station, teacher, or block list, change only the values in the settings block at
-the top of `index.html` — no logic below needs touching.
+| Station | Reference | Gate word (copied from verse) | ACTS answer |
+|---|---|---|---|
+| 1 · Abraham | Genesis 22:2 | `Moriah` — "…go to the land of ____" | Adoration |
+| 2 · Moses | Exodus 32:11 | `Egypt` — "…out of the land of ____" | Supplication |
+| 3 · David | Psalm 51:1 | `mercy` — "Have ____ on me, O God…" | Contrition |
+| 4 · Jonah (keystone) | Jonah 2:9 | `Lord` — "Deliverance belongs to the ____" | Thanksgiving + Supplication |
+| 5 · The Shema | Deuteronomy 6:4 | `one` — "…the Lord is ____" | Adoration **or** "It doesn't fit neatly" |
+
+**Because the answer is copied from the exact wording, verify each against your RSV-2CE Bible** —
+if a word or phrasing differs, update the `gatePrompt` and `gateWord` in the settings block at
+the top of `index.html`. To edit a station, teacher, or block list, change only the values in
+that block — no logic below needs touching.
 
 ---
 

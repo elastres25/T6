@@ -209,6 +209,10 @@ const BLOCKS   = [1,2,3,4,5,6,7,8];
 
 /* -- 3) STATIONS ----------------------------------------------------
    ⚠ VERIFY each gateWord against the class RSV-2CE Bible before use.
+   Each gateWord is a word the student must COPY straight from the verse
+   (the prompt quotes the line with one word blanked out), so they can't
+   answer from memory. If your RSV-2CE wording differs, edit the prompt
+   and gateWord to match your Bible.
    gateWord matching = lowercase + trim + strip surrounding punctuation.
    correct (ACTS) may be a string OR an array of accepted strings.     */
 const STATIONS = [
@@ -216,8 +220,8 @@ const STATIONS = [
     figure:"Abraham",
     ref:"Genesis 22:1–2",
     context:"God calls, and Abraham answers, “Here am I.”",
-    gatePrompt:"What is the name of the son God asks Abraham to offer?",
-    gateWord:"Isaac",
+    gatePrompt:"Copy the missing word (Genesis 22:2): “…go to the land of ____, and offer him there…”",
+    gateWord:"Moriah",
     actsPrompt:"Abraham answers God with total readiness and obeys in reverence. What type of prayer?",
     options:["Adoration","Contrition","Thanksgiving","Supplication"],
     correct:"Adoration"
@@ -226,7 +230,7 @@ const STATIONS = [
     figure:"Moses",
     ref:"Exodus 32:11–14",
     context:"The people have sinned. Moses begs God to spare them.",
-    gatePrompt:"Moses reminds God He brought the people out of what land?",
+    gatePrompt:"Copy the missing word (Exodus 32:11): “…whom you brought forth out of the land of ____…”",
     gateWord:"Egypt",
     actsPrompt:"Moses pleads to God on behalf of the people. What type?",
     options:["Adoration","Contrition","Thanksgiving","Supplication"],
@@ -236,7 +240,7 @@ const STATIONS = [
     figure:"David",
     ref:"Psalm 51:1–4",
     context:"David has sinned, and cries out to God.",
-    gatePrompt:"What does David ask God to have on him in the first line?",
+    gatePrompt:"Copy the missing word (Psalm 51:1): “Have ____ on me, O God, according to your steadfast love…”",
     gateWord:"mercy",
     actsPrompt:"David is deeply sorry and begs forgiveness. What type?",
     options:["Adoration","Contrition","Thanksgiving","Supplication"],
@@ -247,7 +251,7 @@ const STATIONS = [
     keystone:true,
     ref:"Jonah 2:1–2, 9",
     context:"Jonah prays from inside the great fish.",
-    gatePrompt:"In verse 9, “Deliverance belongs to the ____.”",
+    gatePrompt:"Copy the missing word (Jonah 2:9): “Deliverance belongs to the ____.”",
     gateWord:"Lord",
     actsPrompt:"Jonah cries out to be rescued AND thanks God before he’s freed. What TWO types?",
     options:["Adoration + Contrition","Thanksgiving + Supplication","Contrition + Adoration","Adoration + Thanksgiving"],
@@ -257,7 +261,7 @@ const STATIONS = [
     figure:"The Shema",
     ref:"Deuteronomy 6:4–5",
     context:"The prayer Israel prayed every single day.",
-    gatePrompt:"“Hear, O Israel: the Lord our God, the Lord is ____.”",
+    gatePrompt:"Copy the missing word (Deuteronomy 6:4): “Hear, O Israel: the Lord our God, the Lord is ____.”",
     gateWord:"one",
     actsPrompt:"The Shema commands Israel to LOVE God with all their heart, soul, and might. Which is it closest to?",
     options:["Adoration","Contrition","Thanksgiving","Supplication","It doesn’t fit neatly"],
@@ -301,7 +305,7 @@ function loadState(){
     }
   }catch(e){}
   return { started:false, teacher:"", block:"", name:"",
-           current:0, gatePassed:false, startTime:null, endTime:null,
+           current:0, gatePassed:false, actsPassed:false, startTime:null, endTime:null,
            results:blankResults(), submitted:false };
 }
 function saveState(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){} }
@@ -402,6 +406,7 @@ function startScreen(){
     state.started = true;
     state.current = 0;
     state.gatePassed = false;
+    state.actsPassed = false;
     state.startTime = Date.now();
     state.endTime = null;
     state.submitted = false;
@@ -418,67 +423,63 @@ function stationScreen(idx){
   const r = state.results[idx];
   const card = document.createElement("div");
   card.className = "card";
+  const lastStation = (idx === TOTAL-1);
 
   card.innerHTML = `
     <div class="station-label">Station ${idx+1} of ${TOTAL}${s.keystone?" &middot; Keystone":""}</div>
     <h2 class="figure">${esc(s.figure)}</h2>
 
-    <div class="step ${state.gatePassed?'':'active'}" id="gateStep">
+    <!-- STEP 1 : find & copy the gate word -->
+    <div class="step ${(!state.gatePassed)?'active':''}" id="gateStep">
       <p class="ref">${esc(s.ref)}</p>
       <p class="context">${esc(s.context)}</p>
       <div class="showbie"><strong>Showbie:</strong> Post a photo of your open Bible to Showbie.</div>
-
-      <span class="step-tag">Your justification</span>
-      <p class="prompt">In a sentence, why is this the prayer type it is?</p>
-      <textarea id="justInput" placeholder="Type your justification…">${esc(r.justification)}</textarea>
-
-      <span class="step-tag">Gate word</span>
+      <span class="step-tag">Find it in your Bible</span>
       <p class="prompt">${esc(s.gatePrompt)}</p>
-      <input type="text" id="gateInput" placeholder="Type the word…" autocomplete="off" autocapitalize="off" spellcheck="false" />
+      <input type="text" id="gateInput" placeholder="Copy the word from the verse…" autocomplete="off" autocapitalize="off" spellcheck="false" />
       <button class="btn-primary" id="gateBtn">Check</button>
       <div class="feedback" id="gateFeedback"></div>
     </div>
 
-    <div class="step ${state.gatePassed?'active':''}" id="actsStep">
+    <!-- STEP 2 : ACTS choice -->
+    <div class="step ${(state.gatePassed && !state.actsPassed)?'active':''}" id="actsStep">
       <span class="step-tag">Name the prayer</span>
       <p class="prompt">${esc(s.actsPrompt)}</p>
       <div class="options" id="actsOptions"></div>
       <div class="feedback" id="actsFeedback"></div>
     </div>
+
+    <!-- STEP 3 : justification, then unlock next clue -->
+    <div class="step ${(state.gatePassed && state.actsPassed)?'active':''}" id="justStep">
+      <span class="step-tag">One more thing</span>
+      <p class="prompt">In a sentence, why is this the prayer type you chose?</p>
+      <textarea id="justInput" placeholder="Type your justification…">${esc(r.justification)}</textarea>
+      <button class="btn-primary" id="justBtn">${lastStation?"See your results":"Unlock the next clue"}</button>
+      <div class="feedback" id="justFeedback"></div>
+    </div>
   `;
 
-  const justInput = card.querySelector("#justInput");
+  const gateStep = card.querySelector("#gateStep");
+  const actsStep = card.querySelector("#actsStep");
+  const justStep = card.querySelector("#justStep");
   const gateInput = card.querySelector("#gateInput");
   const gateFeedback = card.querySelector("#gateFeedback");
 
-  // keep justification saved as they type
-  justInput.addEventListener("input", ()=>{ r.justification = justInput.value; saveState(); });
-
+  // --- STEP 1: gate word (copied from the verse) ---
   function submitGate(){
-    if(!justInput.value.trim()){
-      gateFeedback.textContent = "Add your justification first.";
-      gateFeedback.className = "feedback bad";
-      justInput.classList.add("shake");
-      setTimeout(()=>justInput.classList.remove("shake"),400);
-      return;
-    }
     const val = normalise(gateInput.value);
     if(!val) return;
     r.gateAttempts += 1;
     if(val === normalise(s.gateWord)){
-      r.justification = justInput.value.trim();
       state.gatePassed = true;
       saveState();
       card.classList.add("gold-flash");
       gateFeedback.textContent = "✓ Found it.";
       gateFeedback.className = "feedback good";
-      setTimeout(()=>{
-        card.querySelector("#gateStep").classList.remove("active");
-        card.querySelector("#actsStep").classList.add("active");
-      },450);
+      setTimeout(()=>{ gateStep.classList.remove("active"); actsStep.classList.add("active"); },450);
     }else{
       saveState();
-      gateFeedback.textContent = "Not quite — check the verse again.";
+      gateFeedback.textContent = "Not quite — check the verse and copy the word exactly.";
       gateFeedback.className = "feedback bad";
       gateInput.classList.add("shake");
       setTimeout(()=>gateInput.classList.remove("shake"),400);
@@ -487,8 +488,10 @@ function stationScreen(idx){
   card.querySelector("#gateBtn").addEventListener("click", submitGate);
   gateInput.addEventListener("keydown", e=>{ if(e.key==="Enter") submitGate(); });
 
+  // --- STEP 2: ACTS choice ---
   const optWrap = card.querySelector("#actsOptions");
   const actsFeedback = card.querySelector("#actsFeedback");
+  const justInput = card.querySelector("#justInput");
   s.options.forEach(opt=>{
     const b = document.createElement("button");
     b.className = "opt";
@@ -497,17 +500,17 @@ function stationScreen(idx){
       r.actsAttempts += 1;
       if(isActsCorrect(s, opt)){
         r.actsAnswer = opt;
+        state.actsPassed = true;
+        saveState();
         b.classList.add("picked-right");
         actsFeedback.textContent = "✓ Yes.";
         actsFeedback.className = "feedback good";
         card.classList.add("gold-flash");
         optWrap.querySelectorAll(".opt").forEach(x=>x.disabled=true);
         setTimeout(()=>{
-          state.current += 1;
-          state.gatePassed = false;
-          if(allDone()) state.endTime = Date.now();
-          saveState();
-          render();
+          actsStep.classList.remove("active");
+          justStep.classList.add("active");
+          justInput.focus();
         },650);
       }else{
         saveState();
@@ -520,7 +523,33 @@ function stationScreen(idx){
     optWrap.appendChild(b);
   });
 
+  // --- STEP 3: justification unlocks the next clue ---
+  justInput.addEventListener("input", ()=>{ r.justification = justInput.value; saveState(); });
+  function submitJust(){
+    if(!justInput.value.trim()){
+      const jf = card.querySelector("#justFeedback");
+      jf.textContent = "Add your justification to unlock the next clue.";
+      jf.className = "feedback bad";
+      justInput.classList.add("shake");
+      setTimeout(()=>justInput.classList.remove("shake"),400);
+      return;
+    }
+    r.justification = justInput.value.trim();
+    card.classList.add("gold-flash");
+    setTimeout(()=>{
+      state.current += 1;
+      state.gatePassed = false;
+      state.actsPassed = false;
+      if(allDone()) state.endTime = Date.now();
+      saveState();
+      render();
+    },350);
+  }
+  card.querySelector("#justBtn").addEventListener("click", submitJust);
+
+  // focus the input for whichever step is active
   if(!state.gatePassed) setTimeout(()=>gateInput.focus(),100);
+  else if(state.actsPassed) setTimeout(()=>justInput.focus(),100);
   return card;
 }
 
