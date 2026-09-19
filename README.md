@@ -8,7 +8,7 @@ At the start each student picks their **teacher** (Lastres, Mackle, Vazquez), th
 (1–8), and types their **name**. Then they work through **5 Bible stations in a fixed order**;
 each must be completed correctly before the next unlocks:
 
-1. **Find the verse** (reference + one-line context) and **post a photo** of the open Bible to Showbie
+1. **Find the verse** (reference + one-line context) in the Bible
 2. **Gate word** — copy a word *straight from the verse* (the prompt quotes the line with one word blanked out, so they can't answer from memory). Case-insensitive, punctuation ignored, unlimited retries.
 3. **ACTS choice** — tap the type of prayer
 4. **Justification** — after they get ACTS right, they type a one-sentence justification; submitting it **unlocks the next clue**
@@ -81,6 +81,30 @@ no account for students, no cost.** Do this once.
      **Responses** tab of your Sheet. Each student = one row, with their teacher, block,
      name, total time, and — for every station — their justification, ACTS answer, and how
      many attempts they took.
+
+### Troubleshooting — "the Sheet isn't updating"
+
+Because browsers only allow the app to send data in "no-cors" mode, **the app cannot see whether
+Google accepted the data** — so it always shows "✓ Saved" even if the write was refused. That
+means an empty Sheet is almost always a *deployment* problem, not an app problem. Work through
+these in order:
+
+1. **Open the `/exec` URL in a browser** (paste it into a new tab). You should see:
+   `OK — receiver is running and connected to: "…".`
+   - If you see a **Google sign-in page** or **"You need permission"** → the deployment access is
+     wrong. Fix: **Deploy ▸ Manage deployments ▸** (edit ✏) **▸ Who has access: Anyone ▸ Deploy.**
+   - If you see **"cannot reach a Sheet"** → the script isn't bound to your Sheet. Open the SHEET
+     from Drive, use **Extensions ▸ Apps Script**, OR paste your Sheet ID into the `SHEET_ID`
+     line at the top of `google-apps-script.gs`.
+2. **Re-deploy after any code change.** Editing the script does NOT update the live URL by itself.
+   Do **Deploy ▸ Manage deployments ▸** (edit ✏) **▸ Version: New version ▸ Deploy.** The `/exec`
+   URL stays the same.
+3. **Execute as: Me**, **Who has access: Anyone** — both must be set on the deployment.
+4. **Re-test cleanly.** The app remembers it already sent for a given student, so after fixing the
+   deployment, **reset before re-testing**: long-press the bottom-left corner ▸ *Reset the hunt*,
+   then complete the hunt again. (Or clear the site's data in your browser.)
+5. **Confirm you're testing the deployed app that has the URL in it** — the copy on GitHub Pages,
+   not an older local file where `SHEET_ENDPOINT` is still `""`.
 
 **Notes**
    - Sending the data needs a connection at the finish. Finding/gating still works offline;
@@ -157,5 +181,4 @@ Open `index.html` in any phone/desktop browser. (The Sheet submission still need
 - **Attempt counts** per station logged to the Sheet (a quick read on who struggled where)
 - Gold **confetti burst** on completion
 
-Division of labor: **the app gates, tags, and logs justifications + stats to your Sheet;
-Showbie holds the photos.**
+The app gates each station, tags the prayer type, and logs justifications + stats to your Sheet.

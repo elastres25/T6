@@ -96,12 +96,6 @@
   .ref{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--navy);margin:0 0 6px;}
   .context{color:var(--grey);font-size:15px;margin:0 0 18px;font-style:italic;}
 
-  .showbie{
-    background:var(--cream);border-left:4px solid var(--gold);border-radius:8px;
-    padding:11px 13px;font-size:13.5px;color:var(--grey);margin-bottom:18px;
-  }
-  .showbie strong{color:var(--navy);}
-
   .prompt{font-size:16px;font-weight:600;margin:0 0 12px;color:var(--navy);}
   .field-label{font-size:13px;font-weight:700;color:var(--navy);margin:0 0 6px;text-transform:uppercase;letter-spacing:.6px;}
 
@@ -289,7 +283,7 @@ const STATIONS = [
 
 <main id="app"><!-- rendered by JS --></main>
 
-<footer>Photos go in Showbie &middot; your justifications are saved here.</footer>
+<footer>Your answers are saved for your teacher.</footer>
 
 <div id="resetZone" title=""></div>
 <button id="resetBtn">Reset the hunt &amp; start over</button>
@@ -444,7 +438,6 @@ function stationScreen(idx){
     <div class="step ${(!state.gatePassed)?'active':''}" id="gateStep">
       <p class="ref">${esc(s.ref)}</p>
       <p class="context">${esc(s.context)}</p>
-      <div class="showbie"><strong>Showbie:</strong> Post a photo of your open Bible to Showbie.</div>
       <span class="step-tag">Find it in your Bible</span>
       <p class="prompt">${esc(s.gatePrompt)}</p>
       <input type="text" id="gateInput" placeholder="Copy the word from the verse…" autocomplete="off" autocapitalize="off" spellcheck="false" />
@@ -589,7 +582,7 @@ function completionScreen(){
     ${state.name?`<div class="finish-name">${esc(state.name)}</div>`:""}
     <div class="finish-meta">${esc(state.teacher)} &middot; Block ${esc(state.block)}</div>
     ${elapsed?`<div class="timer-badge">Time: ${elapsed}</div>`:""}
-    <p class="lead" style="margin-top:14px;">Every one of these was a person answering a God who spoke first. Post your last photo to Showbie and come back together.</p>
+    <p class="lead" style="margin-top:14px;">Every one of these was a person answering a God who spoke first. Come back together for the next part.</p>
     <ul class="summary">${summary}</ul>
     ${afterNote?`<div class="closing">${esc(afterNote)}</div>`:""}
     <div class="save-status" id="saveStatus"></div>

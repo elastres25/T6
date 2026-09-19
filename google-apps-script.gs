@@ -10,11 +10,24 @@
  * row is created automatically the first time data arrives.
  */
 
+/* OPTIONAL: paste your Sheet's ID between the quotes to make this work even
+   if the script isn't bound to the Sheet. The ID is the long code in the
+   Sheet URL:  https://docs.google.com/spreadsheets/d/THIS_PART/edit
+   Leave "" if you pasted the script via the Sheet's Extensions ▸ Apps Script. */
+var SHEET_ID = "";
+
+function getSpreadsheet_() {
+  if (SHEET_ID) return SpreadsheetApp.openById(SHEET_ID);
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss) throw new Error('No bound Sheet. Set SHEET_ID at the top of this script.');
+  return ss;
+}
+
 function doPost(e) {
   var lock = LockService.getScriptLock();
   lock.waitLock(30000); // avoid two students writing the same row
   try {
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var ss = getSpreadsheet_();
     var sheet = ss.getSheetByName('Responses') || ss.insertSheet('Responses');
 
     var data = JSON.parse(e.postData.contents);
@@ -56,7 +69,14 @@ function doPost(e) {
   }
 }
 
-// Lets you open the Web App URL in a browser to confirm it is live.
+// Open the Web App URL in a browser to confirm it is live AND can reach the Sheet.
 function doGet() {
-  return ContentService.createTextOutput('The Bible Hunt receiver is running.');
+  var msg;
+  try {
+    var ss = getSpreadsheet_();
+    msg = 'OK — receiver is running and connected to: "' + ss.getName() + '".';
+  } catch (err) {
+    msg = 'Receiver is running, but it cannot reach a Sheet: ' + String(err);
+  }
+  return ContentService.createTextOutput(msg);
 }
