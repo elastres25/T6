@@ -59,13 +59,7 @@
     letter-spacing:1px;
     text-transform:uppercase;
   }
-  /* progress dots */
-  .dots{
-    display:flex;
-    justify-content:center;
-    gap:9px;
-    margin-top:10px;
-  }
+  .dots{display:flex;justify-content:center;gap:9px;margin-top:10px;}
   .dot{
     width:12px;height:12px;border-radius:50%;
     background:rgba(244,241,232,.25);
@@ -76,13 +70,7 @@
   .dot.current{background:var(--gold-light);border-color:var(--gold-light);transform:scale(1.25);}
 
   /* ---------- Main / cards ---------- */
-  main{
-    flex:1;
-    display:flex;
-    align-items:flex-start;
-    justify-content:center;
-    padding:18px 16px 40px;
-  }
+  main{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:18px 16px 40px;}
   .card{
     background:var(--white);
     width:100%;
@@ -96,251 +84,133 @@
   @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 
   .station-label{
-    font-size:12px;
-    text-transform:uppercase;
-    letter-spacing:1.5px;
-    color:var(--gold);
-    font-weight:700;
-    margin-bottom:4px;
+    font-size:12px;text-transform:uppercase;letter-spacing:1.5px;
+    color:var(--gold);font-weight:700;margin-bottom:4px;
   }
-  h2.figure{
-    font-family:var(--serif);
-    font-size:26px;
-    margin:0 0 14px;
-    color:var(--navy);
-  }
-  .ref{
-    font-family:var(--serif);
-    font-size:20px;
-    font-weight:700;
-    color:var(--navy);
-    margin:0 0 6px;
-  }
-  .context{
-    color:var(--grey);
-    font-size:15px;
-    margin:0 0 18px;
-    font-style:italic;
-  }
+  h2.figure{font-family:var(--serif);font-size:26px;margin:0 0 14px;color:var(--navy);}
+  .ref{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--navy);margin:0 0 6px;}
+  .context{color:var(--grey);font-size:15px;margin:0 0 18px;font-style:italic;}
 
   .showbie{
-    background:var(--cream);
-    border-left:4px solid var(--gold);
-    border-radius:8px;
-    padding:11px 13px;
-    font-size:13.5px;
-    color:var(--grey);
-    margin-bottom:20px;
+    background:var(--cream);border-left:4px solid var(--gold);border-radius:8px;
+    padding:11px 13px;font-size:13.5px;color:var(--grey);margin-bottom:18px;
   }
   .showbie strong{color:var(--navy);}
 
-  .prompt{
-    font-size:16px;
-    font-weight:600;
-    margin:0 0 12px;
-    color:var(--navy);
-  }
+  .prompt{font-size:16px;font-weight:600;margin:0 0 12px;color:var(--navy);}
+  .field-label{font-size:13px;font-weight:700;color:var(--navy);margin:0 0 6px;text-transform:uppercase;letter-spacing:.6px;}
 
   /* ---------- Inputs & buttons ---------- */
-  input[type=text]{
-    width:100%;
-    padding:15px 14px;
-    font-size:17px;
-    border:2px solid #d8d2c2;
-    border-radius:10px;
-    background:var(--cream);
-    color:var(--navy);
-    font-family:var(--sans);
-    margin-bottom:14px;
+  input[type=text],textarea,select{
+    width:100%;padding:14px;font-size:16px;
+    border:2px solid #d8d2c2;border-radius:10px;
+    background:var(--cream);color:var(--navy);
+    font-family:var(--sans);margin-bottom:14px;
   }
-  input[type=text]:focus{outline:none;border-color:var(--gold);}
+  textarea{resize:vertical;min-height:78px;line-height:1.4;}
+  input[type=text]:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold);}
 
-  button{
-    font-family:var(--sans);
-    cursor:pointer;
-    border:none;
-    border-radius:10px;
-    font-size:16px;
-  }
+  button{font-family:var(--sans);cursor:pointer;border:none;border-radius:10px;font-size:16px;}
   .btn-primary{
-    width:100%;
-    padding:15px;
-    background:var(--gold);
-    color:var(--white);
-    font-weight:700;
-    letter-spacing:.3px;
-    box-shadow:0 3px 0 #8f7132;
-    transition:transform .05s ease;
+    width:100%;padding:15px;background:var(--gold);color:var(--white);
+    font-weight:700;letter-spacing:.3px;box-shadow:0 3px 0 #8f7132;transition:transform .05s ease;
   }
   .btn-primary:active{transform:translateY(2px);box-shadow:0 1px 0 #8f7132;}
+  .btn-primary:disabled{background:#cfc7b3;color:#fff;box-shadow:0 3px 0 #b5ad99;cursor:not-allowed;}
+
+  /* teacher + block pickers */
+  .pick-grid{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:16px;}
+  .pick{
+    flex:1 1 auto;min-width:0;padding:14px 10px;text-align:center;
+    background:var(--cream);color:var(--navy);border:2px solid #d8d2c2;
+    font-weight:600;border-radius:10px;
+  }
+  .block-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:16px;}
+  .block-grid .pick{flex:none;padding:14px 0;font-size:17px;}
+  .pick.sel{background:var(--gold);color:#fff;border-color:var(--gold);}
 
   /* ACTS options */
   .options{display:flex;flex-direction:column;gap:11px;margin-bottom:6px;}
   .opt{
-    width:100%;
-    text-align:left;
-    padding:15px 16px;
-    background:var(--cream);
-    color:var(--navy);
-    border:2px solid #d8d2c2;
-    font-weight:600;
-    transition:all .12s ease;
+    width:100%;text-align:left;padding:15px 16px;background:var(--cream);color:var(--navy);
+    border:2px solid #d8d2c2;font-weight:600;transition:all .12s ease;
   }
   .opt:active{transform:scale(.99);}
-  .opt.picked-wrong{
-    border-color:var(--wrong);
-    animation:shake .4s;
-  }
-  .opt.picked-right{
-    border-color:var(--gold);
-    background:var(--gold);
-    color:#fff;
-  }
+  .opt.picked-wrong{border-color:var(--wrong);animation:shake .4s;}
+  .opt.picked-right{border-color:var(--gold);background:var(--gold);color:#fff;}
 
-  /* feedback */
-  .feedback{
-    min-height:22px;
-    font-size:14.5px;
-    margin-top:6px;
-    font-weight:600;
-  }
+  .feedback{min-height:22px;font-size:14.5px;margin-top:6px;font-weight:600;}
   .feedback.bad{color:var(--wrong);}
   .feedback.good{color:var(--gold);}
 
   .shake{animation:shake .4s;}
-  @keyframes shake{
-    0%,100%{transform:translateX(0);}
-    20%{transform:translateX(-7px);}
-    40%{transform:translateX(7px);}
-    60%{transform:translateX(-5px);}
-    80%{transform:translateX(5px);}
-  }
+  @keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-7px);}40%{transform:translateX(7px);}60%{transform:translateX(-5px);}80%{transform:translateX(5px);}}
   .gold-flash{animation:goldFlash .5s ease;}
-  @keyframes goldFlash{
-    0%{box-shadow:0 6px 20px rgba(27,42,74,.12);}
-    50%{box-shadow:0 0 0 4px var(--gold-light),0 6px 24px rgba(176,141,63,.5);}
-    100%{box-shadow:0 6px 20px rgba(27,42,74,.12);}
-  }
+  @keyframes goldFlash{0%{box-shadow:0 6px 20px rgba(27,42,74,.12);}50%{box-shadow:0 0 0 4px var(--gold-light),0 6px 24px rgba(176,141,63,.5);}100%{box-shadow:0 6px 20px rgba(27,42,74,.12);}}
 
-  /* step reveal */
   .step{display:none;}
   .step.active{display:block;}
-
   .step-tag{
-    display:inline-block;
-    font-size:11px;
-    letter-spacing:1px;
-    text-transform:uppercase;
-    color:var(--gold);
-    font-weight:700;
-    margin-bottom:8px;
-    border:1px solid var(--gold);
-    border-radius:20px;
-    padding:2px 10px;
+    display:inline-block;font-size:11px;letter-spacing:1px;text-transform:uppercase;
+    color:var(--gold);font-weight:700;margin-bottom:8px;border:1px solid var(--gold);
+    border-radius:20px;padding:2px 10px;
   }
 
-  /* locked screen */
-  .locked{text-align:center;padding:20px 10px;}
-  .locked .lock{font-size:54px;margin-bottom:10px;}
-  .locked p{color:var(--grey);font-size:16px;}
-
-  /* ---------- Start & completion screens ---------- */
+  /* start & completion */
   .center{text-align:center;}
   .big-serif{font-family:var(--serif);font-size:30px;margin:0 0 10px;color:var(--navy);}
   .intro-icon{font-size:52px;margin-bottom:8px;}
   .lead{color:var(--grey);font-size:15.5px;margin-bottom:22px;}
 
-  .summary{
-    list-style:none;
-    padding:0;margin:20px 0 0;
-    text-align:left;
-    border-top:1px solid #e3ddce;
-  }
-  .summary li{
-    display:flex;
-    justify-content:space-between;
-    align-items:baseline;
-    padding:11px 4px;
-    border-bottom:1px solid #e3ddce;
-    font-size:15px;
-  }
+  .summary{list-style:none;padding:0;margin:20px 0 0;text-align:left;border-top:1px solid #e3ddce;}
+  .summary li{display:flex;justify-content:space-between;align-items:baseline;padding:11px 4px;border-bottom:1px solid #e3ddce;font-size:15px;}
   .summary .who{font-family:var(--serif);font-weight:700;}
   .summary .type{color:var(--gold);font-weight:700;font-size:13.5px;text-align:right;}
 
-  .timer-badge{
-    display:inline-block;
-    background:var(--navy);
-    color:var(--gold-light);
-    font-family:var(--serif);
-    font-size:15px;
-    padding:6px 16px;
-    border-radius:20px;
-    margin:6px 0 4px;
-  }
-  .finish-name{
-    font-family:var(--serif);
-    font-size:20px;
-    color:var(--gold);
-    margin:4px 0 12px;
-  }
-  .closing{
-    background:var(--cream);
-    border-radius:10px;
-    padding:14px;
-    font-size:14.5px;
-    color:var(--grey);
-    margin-top:18px;
-    font-style:italic;
-  }
+  .timer-badge{display:inline-block;background:var(--navy);color:var(--gold-light);font-family:var(--serif);font-size:15px;padding:6px 16px;border-radius:20px;margin:6px 0 4px;}
+  .finish-name{font-family:var(--serif);font-size:20px;color:var(--gold);margin:4px 0 2px;}
+  .finish-meta{font-size:13px;color:var(--grey);letter-spacing:.5px;text-transform:uppercase;margin:0 0 10px;}
+  .closing{background:var(--cream);border-radius:10px;padding:14px;font-size:14.5px;color:var(--grey);margin-top:18px;font-style:italic;}
 
-  /* reset control (hidden, long-press) */
-  #resetZone{
-    position:fixed;
-    bottom:0;left:0;
-    width:64px;height:64px;
-    z-index:50;
-    /* invisible tap/long-press target */
-  }
+  .save-status{margin-top:16px;font-size:14px;font-weight:600;min-height:20px;}
+  .save-status.ok{color:var(--gold);}
+  .save-status.err{color:var(--wrong);}
+  .save-status.pending{color:var(--grey);}
+  .btn-retry{margin-top:10px;background:var(--navy);color:var(--cream);padding:11px 18px;}
+
+  /* reset control */
+  #resetZone{position:fixed;bottom:0;left:0;width:64px;height:64px;z-index:50;}
   #resetBtn{
-    position:fixed;
-    bottom:14px;left:50%;
-    transform:translateX(-50%);
-    background:var(--navy);
-    color:var(--cream);
-    padding:12px 20px;
-    border-radius:24px;
-    box-shadow:0 4px 14px rgba(0,0,0,.3);
-    display:none;
-    z-index:60;
-    font-size:15px;
+    position:fixed;bottom:14px;left:50%;transform:translateX(-50%);
+    background:var(--navy);color:var(--cream);padding:12px 20px;border-radius:24px;
+    box-shadow:0 4px 14px rgba(0,0,0,.3);display:none;z-index:60;font-size:15px;
   }
   #resetBtn.show{display:block;animation:fadeIn .2s ease;}
 
-  footer{
-    text-align:center;
-    font-size:11px;
-    color:#b9b09a;
-    padding:6px 0 10px;
-  }
-
-  /* confetti canvas */
-  #confetti{
-    position:fixed;inset:0;
-    pointer-events:none;
-    z-index:40;
-    display:none;
-  }
+  footer{text-align:center;font-size:11px;color:#b9b09a;padding:6px 0 10px;}
+  #confetti{position:fixed;inset:0;pointer-events:none;z-index:40;display:none;}
 </style>
 </head>
 <body>
 
 <!-- ==================================================================
-     STATION DATA  — teacher edits here, no logic below needs touching.
-     ⚠ VERIFY each gateWord against the class RSV-2CE Bible before use.
-     gateWord matching = lowercase + trim + strip surrounding punctuation.
-     correct (ACTS) may be a string OR an array of accepted strings.
+     TEACHER SETTINGS  — edit these, no logic below needs touching.
      ================================================================== -->
 <script>
+/* -- 1) WHERE RESULTS GO ---------------------------------------------
+   Paste your Google Apps Script Web App URL between the quotes.
+   Leave it "" and the app still runs fully (no data is sent anywhere).
+   Setup steps are in README.md.                                       */
+const SHEET_ENDPOINT = "";
+
+/* -- 2) CLASS OPTIONS ------------------------------------------------ */
+const TEACHERS = ["Lastres","Mackle","Vazquez"];
+const BLOCKS   = [1,2,3,4,5,6,7,8];
+
+/* -- 3) STATIONS ----------------------------------------------------
+   ⚠ VERIFY each gateWord against the class RSV-2CE Bible before use.
+   gateWord matching = lowercase + trim + strip surrounding punctuation.
+   correct (ACTS) may be a string OR an array of accepted strings.     */
 const STATIONS = [
   {
     figure:"Abraham",
@@ -399,58 +269,58 @@ const STATIONS = [
 
 <header>
   <p class="brand">Prayer &middot; Unit 2 &middot; The Bible Hunt</p>
-  <p class="sub" id="progressText">Station 1 of 5</p>
+  <p class="sub" id="progressText">The Bible Hunt</p>
   <div class="dots" id="dots"></div>
 </header>
 
 <main id="app"><!-- rendered by JS --></main>
 
-<footer>Photos &amp; justifications go in Showbie.</footer>
+<footer>Photos go in Showbie &middot; your justifications are saved here.</footer>
 
-<!-- hidden long-press reset target (bottom-left corner) -->
 <div id="resetZone" title=""></div>
 <button id="resetBtn">Reset the hunt &amp; start over</button>
-
 <canvas id="confetti"></canvas>
 
 <script>
 /* ============================================================
    LOGIC  (teacher normally doesn't need to touch below here)
    ============================================================ */
-const LS_KEY = "bibleHunt_v1";
-const TOTAL = STATIONS.length;
+const LS_KEY = "bibleHunt_v2";
+const TOTAL  = STATIONS.length;
 
-// ---- state ----
+function blankResults(){
+  return STATIONS.map(()=>({justification:"",gateAttempts:0,actsAttempts:0,actsAnswer:""}));
+}
 function loadState(){
   try{
     const raw = localStorage.getItem(LS_KEY);
-    if(raw) return JSON.parse(raw);
+    if(raw){
+      const s = JSON.parse(raw);
+      if(!Array.isArray(s.results) || s.results.length!==TOTAL) s.results = blankResults();
+      return s;
+    }
   }catch(e){}
-  return { started:false, name:"", current:0, gatePassed:false, startTime:null, endTime:null };
+  return { started:false, teacher:"", block:"", name:"",
+           current:0, gatePassed:false, startTime:null, endTime:null,
+           results:blankResults(), submitted:false };
 }
-function saveState(){
-  try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){}
-}
+function saveState(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){} }
 let state = loadState();
 
-// ---- gate-word normaliser: lowercase + trim + strip surrounding punctuation ----
+/* gate-word normaliser: lowercase + trim + strip surrounding punctuation */
 function normalise(str){
-  return String(str)
-    .toLowerCase()
-    .trim()
+  return String(str).toLowerCase().trim()
     .replace(/^[\s.,;:!?"'‘’“”()\-]+/, "")
-    .replace(/[\s.,;:!?"'‘’“”()\-]+$/, "")
-    .trim();
+    .replace(/[\s.,;:!?"'‘’“”()\-]+$/, "").trim();
 }
-
-// ---- ACTS answer check (supports single value or array) ----
 function isActsCorrect(station, choice){
   const c = station.correct;
-  if(Array.isArray(c)) return c.some(v => v === choice);
-  return c === choice;
+  return Array.isArray(c) ? c.some(v=>v===choice) : c===choice;
 }
+function allDone(){ return state.current >= TOTAL; }
+function esc(s){ return String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m])); }
 
-// ---- header / progress ----
+/* ---------- header / progress ---------- */
 function renderProgress(){
   const dots = document.getElementById("dots");
   dots.innerHTML = "";
@@ -462,90 +332,141 @@ function renderProgress(){
     dots.appendChild(d);
   }
   const pt = document.getElementById("progressText");
-  if(allDone()) pt.textContent = "Complete — all 5 found";
-  else if(!state.started) pt.textContent = "The Bible Hunt";
+  if(!state.started) pt.textContent = "The Bible Hunt";
+  else if(allDone()) pt.textContent = "Complete — all 5 found";
   else pt.textContent = "Station " + (state.current+1) + " of " + TOTAL;
 }
 
-function allDone(){ return state.current >= TOTAL; }
-
-// ============================================================
-//  SCREENS
-// ============================================================
+/* ============================================================
+   SCREENS
+   ============================================================ */
 function render(){
   renderProgress();
   const app = document.getElementById("app");
-
-  if(!state.started){ app.innerHTML = ""; app.appendChild(startScreen()); return; }
-  if(allDone()){ app.innerHTML = ""; app.appendChild(completionScreen()); fireConfetti(); return; }
-
   app.innerHTML = "";
+  if(!state.started){ app.appendChild(startScreen()); return; }
+  if(allDone()){ app.appendChild(completionScreen()); fireConfetti(); maybeSubmit(); return; }
   app.appendChild(stationScreen(state.current));
 }
 
-// ---------- START ----------
+/* ---------- START (teacher / block / name) ---------- */
 function startScreen(){
   const card = document.createElement("div");
-  card.className = "card center";
+  card.className = "card";
+
+  let teacherBtns = TEACHERS.map(t=>`<button class="pick" data-teacher="${esc(t)}">${esc(t)}</button>`).join("");
+  let blockBtns   = BLOCKS.map(b=>`<button class="pick" data-block="${b}">${b}</button>`).join("");
+
   card.innerHTML = `
-    <div class="intro-icon">📖</div>
-    <h1 class="big-serif">The Bible Hunt</h1>
-    <p class="lead">Five people. Five prayers. Find each verse, prove you found it, and name the prayer. Complete one to unlock the next.</p>
-    <input type="text" id="nameInput" placeholder="Your name (optional)" autocomplete="off" />
-    <button class="btn-primary" id="startBtn">Begin the hunt</button>
+    <div class="center">
+      <div class="intro-icon">📖</div>
+      <h1 class="big-serif">The Bible Hunt</h1>
+      <p class="lead">Five people. Five prayers. Find each verse, prove you found it, and name the prayer.</p>
+    </div>
+    <p class="field-label">Your teacher</p>
+    <div class="pick-grid" id="teacherGrid">${teacherBtns}</div>
+    <p class="field-label">Your block</p>
+    <div class="block-grid" id="blockGrid">${blockBtns}</div>
+    <p class="field-label">Your name</p>
+    <input type="text" id="nameInput" placeholder="First and last name" autocomplete="name" />
+    <button class="btn-primary" id="startBtn" disabled>Begin the hunt</button>
+    <div class="feedback" id="startFeedback"></div>
   `;
-  card.querySelector("#startBtn").addEventListener("click", ()=>{
-    const nm = card.querySelector("#nameInput").value.trim();
-    state.name = nm;
+
+  let sel = { teacher:"", block:"" };
+  const startBtn = card.querySelector("#startBtn");
+  const nameInput = card.querySelector("#nameInput");
+
+  function refresh(){
+    startBtn.disabled = !(sel.teacher && sel.block && nameInput.value.trim());
+  }
+  card.querySelector("#teacherGrid").addEventListener("click", e=>{
+    const b = e.target.closest("[data-teacher]"); if(!b) return;
+    sel.teacher = b.dataset.teacher;
+    card.querySelectorAll("#teacherGrid .pick").forEach(x=>x.classList.remove("sel"));
+    b.classList.add("sel"); refresh();
+  });
+  card.querySelector("#blockGrid").addEventListener("click", e=>{
+    const b = e.target.closest("[data-block]"); if(!b) return;
+    sel.block = b.dataset.block;
+    card.querySelectorAll("#blockGrid .pick").forEach(x=>x.classList.remove("sel"));
+    b.classList.add("sel"); refresh();
+  });
+  nameInput.addEventListener("input", refresh);
+
+  startBtn.addEventListener("click", ()=>{
+    if(startBtn.disabled) return;
+    state.teacher = sel.teacher;
+    state.block = sel.block;
+    state.name = nameInput.value.trim();
     state.started = true;
     state.current = 0;
     state.gatePassed = false;
     state.startTime = Date.now();
     state.endTime = null;
+    state.submitted = false;
+    state.results = blankResults();
     saveState();
     render();
   });
   return card;
 }
 
-// ---------- STATION ----------
+/* ---------- STATION ---------- */
 function stationScreen(idx){
   const s = STATIONS[idx];
+  const r = state.results[idx];
   const card = document.createElement("div");
   card.className = "card";
 
   card.innerHTML = `
     <div class="station-label">Station ${idx+1} of ${TOTAL}${s.keystone?" &middot; Keystone":""}</div>
-    <h2 class="figure">${s.figure}</h2>
+    <h2 class="figure">${esc(s.figure)}</h2>
 
-    <!-- STEP 1+2+3 : task, showbie, gate word -->
     <div class="step ${state.gatePassed?'':'active'}" id="gateStep">
-      <p class="ref">${s.ref}</p>
-      <p class="context">${s.context}</p>
-      <div class="showbie"><strong>Showbie:</strong> Post a photo of your open Bible + your justification to Showbie.</div>
+      <p class="ref">${esc(s.ref)}</p>
+      <p class="context">${esc(s.context)}</p>
+      <div class="showbie"><strong>Showbie:</strong> Post a photo of your open Bible to Showbie.</div>
+
+      <span class="step-tag">Your justification</span>
+      <p class="prompt">In a sentence, why is this the prayer type it is?</p>
+      <textarea id="justInput" placeholder="Type your justification…">${esc(r.justification)}</textarea>
+
       <span class="step-tag">Gate word</span>
-      <p class="prompt">${s.gatePrompt}</p>
+      <p class="prompt">${esc(s.gatePrompt)}</p>
       <input type="text" id="gateInput" placeholder="Type the word…" autocomplete="off" autocapitalize="off" spellcheck="false" />
       <button class="btn-primary" id="gateBtn">Check</button>
       <div class="feedback" id="gateFeedback"></div>
     </div>
 
-    <!-- STEP 4 : ACTS choice -->
     <div class="step ${state.gatePassed?'active':''}" id="actsStep">
       <span class="step-tag">Name the prayer</span>
-      <p class="prompt">${s.actsPrompt}</p>
+      <p class="prompt">${esc(s.actsPrompt)}</p>
       <div class="options" id="actsOptions"></div>
       <div class="feedback" id="actsFeedback"></div>
     </div>
   `;
 
-  // --- gate handlers ---
+  const justInput = card.querySelector("#justInput");
   const gateInput = card.querySelector("#gateInput");
   const gateFeedback = card.querySelector("#gateFeedback");
+
+  // keep justification saved as they type
+  justInput.addEventListener("input", ()=>{ r.justification = justInput.value; saveState(); });
+
   function submitGate(){
+    if(!justInput.value.trim()){
+      gateFeedback.textContent = "Add your justification first.";
+      gateFeedback.className = "feedback bad";
+      justInput.classList.add("shake");
+      setTimeout(()=>justInput.classList.remove("shake"),400);
+      return;
+    }
     const val = normalise(gateInput.value);
-    if(!val){ return; }
+    if(!val) return;
+    r.gateAttempts += 1;
     if(val === normalise(s.gateWord)){
+      r.justification = justInput.value.trim();
       state.gatePassed = true;
       saveState();
       card.classList.add("gold-flash");
@@ -554,18 +475,18 @@ function stationScreen(idx){
       setTimeout(()=>{
         card.querySelector("#gateStep").classList.remove("active");
         card.querySelector("#actsStep").classList.add("active");
-      }, 450);
+      },450);
     }else{
+      saveState();
       gateFeedback.textContent = "Not quite — check the verse again.";
       gateFeedback.className = "feedback bad";
       gateInput.classList.add("shake");
-      setTimeout(()=>gateInput.classList.remove("shake"), 400);
+      setTimeout(()=>gateInput.classList.remove("shake"),400);
     }
   }
   card.querySelector("#gateBtn").addEventListener("click", submitGate);
   gateInput.addEventListener("keydown", e=>{ if(e.key==="Enter") submitGate(); });
 
-  // --- ACTS options ---
   const optWrap = card.querySelector("#actsOptions");
   const actsFeedback = card.querySelector("#actsFeedback");
   s.options.forEach(opt=>{
@@ -573,92 +494,128 @@ function stationScreen(idx){
     b.className = "opt";
     b.textContent = opt;
     b.addEventListener("click", ()=>{
+      r.actsAttempts += 1;
       if(isActsCorrect(s, opt)){
+        r.actsAnswer = opt;
         b.classList.add("picked-right");
         actsFeedback.textContent = "✓ Yes.";
         actsFeedback.className = "feedback good";
         card.classList.add("gold-flash");
-        // disable further taps
         optWrap.querySelectorAll(".opt").forEach(x=>x.disabled=true);
         setTimeout(()=>{
           state.current += 1;
           state.gatePassed = false;
-          if(allDone()){ state.endTime = Date.now(); }
+          if(allDone()) state.endTime = Date.now();
           saveState();
           render();
-        }, 650);
+        },650);
       }else{
+        saveState();
         b.classList.add("picked-wrong");
         actsFeedback.textContent = "Think about what this person is doing — try again.";
         actsFeedback.className = "feedback bad";
-        setTimeout(()=>b.classList.remove("picked-wrong"), 450);
+        setTimeout(()=>b.classList.remove("picked-wrong"),450);
       }
     });
     optWrap.appendChild(b);
   });
 
-  // autofocus gate input when it's the active step
-  if(!state.gatePassed){ setTimeout(()=>gateInput.focus(), 100); }
-
+  if(!state.gatePassed) setTimeout(()=>gateInput.focus(),100);
   return card;
 }
 
-// ---------- COMPLETION ----------
+/* ---------- COMPLETION ---------- */
 function fmtTime(ms){
-  if(!ms || ms < 0) return "";
+  if(!ms || ms<0) return "";
   const total = Math.floor(ms/1000);
-  const m = Math.floor(total/60);
-  const s = total % 60;
+  const m = Math.floor(total/60), s = total%60;
   return m + "m " + (s<10?"0":"") + s + "s";
 }
-function typeLabel(st){
-  return Array.isArray(st.correct) ? st.correct.join(" / ") : st.correct;
-}
+function typeLabel(st){ return Array.isArray(st.correct) ? st.correct.join(" / ") : st.correct; }
+
 function completionScreen(){
   const card = document.createElement("div");
   card.className = "card center";
-
   const elapsed = (state.startTime && state.endTime) ? fmtTime(state.endTime - state.startTime) : "";
   const keystone = STATIONS.find(s=>s.keystone);
   const afterNote = keystone && keystone.afterNote ? keystone.afterNote : "";
 
   let summary = "";
-  STATIONS.forEach(s=>{
-    summary += `<li><span class="who">${s.figure}</span><span class="type">${typeLabel(s)}</span></li>`;
-  });
+  STATIONS.forEach(s=>{ summary += `<li><span class="who">${esc(s.figure)}</span><span class="type">${esc(typeLabel(s))}</span></li>`; });
 
   card.innerHTML = `
     <div class="intro-icon">✨</div>
     <h1 class="big-serif">You found them all.</h1>
-    ${state.name?`<div class="finish-name">${state.name}</div>`:""}
+    ${state.name?`<div class="finish-name">${esc(state.name)}</div>`:""}
+    <div class="finish-meta">${esc(state.teacher)} &middot; Block ${esc(state.block)}</div>
     ${elapsed?`<div class="timer-badge">Time: ${elapsed}</div>`:""}
-    <p class="lead" style="margin-top:14px;">Every one of these was a person answering a God who spoke first. Post your last justification to Showbie and come back together.</p>
+    <p class="lead" style="margin-top:14px;">Every one of these was a person answering a God who spoke first. Post your last photo to Showbie and come back together.</p>
     <ul class="summary">${summary}</ul>
-    ${afterNote?`<div class="closing">${afterNote}</div>`:""}
+    ${afterNote?`<div class="closing">${esc(afterNote)}</div>`:""}
+    <div class="save-status" id="saveStatus"></div>
   `;
   return card;
 }
 
-// ============================================================
-//  RESET  (hidden long-press bottom-left; teacher/student restart)
-// ============================================================
+/* ---------- SEND RESULTS TO GOOGLE SHEET (once, at the end) ---------- */
+function buildPayload(){
+  return {
+    teacher: state.teacher,
+    block: state.block,
+    name: state.name,
+    totalTimeText: (state.startTime && state.endTime) ? fmtTime(state.endTime - state.startTime) : "",
+    totalTimeSeconds: (state.startTime && state.endTime) ? Math.round((state.endTime - state.startTime)/1000) : "",
+    stations: STATIONS.map((s,i)=>({
+      figure: s.figure,
+      justification: state.results[i].justification,
+      gateAttempts: state.results[i].gateAttempts,
+      actsAttempts: state.results[i].actsAttempts,
+      actsAnswer: state.results[i].actsAnswer
+    }))
+  };
+}
+function maybeSubmit(){
+  const status = document.getElementById("saveStatus");
+  if(!SHEET_ENDPOINT){ if(status) status.textContent=""; return; }
+  if(state.submitted){ if(status){ status.textContent="✓ Your results were saved."; status.className="save-status ok"; } return; }
+  sendResults();
+}
+function sendResults(){
+  const status = document.getElementById("saveStatus");
+  if(status){ status.textContent="Saving your results…"; status.className="save-status pending"; }
+  fetch(SHEET_ENDPOINT, {
+    method:"POST",
+    mode:"no-cors",
+    headers:{ "Content-Type":"text/plain;charset=utf-8" },
+    body: JSON.stringify(buildPayload())
+  }).then(()=>{
+    state.submitted = true; saveState();
+    if(status){ status.textContent="✓ Saved. Your teacher can see your results."; status.className="save-status ok"; }
+  }).catch(()=>{
+    if(status){
+      status.innerHTML='Couldn’t save — check your connection.<br><button class="btn-retry" id="retryBtn">Try again</button>';
+      status.className="save-status err";
+      const rb = document.getElementById("retryBtn");
+      if(rb) rb.addEventListener("click", sendResults);
+    }
+  });
+}
+
+/* ============================================================
+   RESET (hidden long-press bottom-left)
+   ============================================================ */
 (function setupReset(){
   const zone = document.getElementById("resetZone");
   const btn  = document.getElementById("resetBtn");
   let timer = null;
-
-  function armShow(){
-    timer = setTimeout(()=>{ btn.classList.add("show"); }, 900); // long-press ~0.9s
-  }
+  function armShow(){ timer = setTimeout(()=>btn.classList.add("show"), 900); }
   function cancel(){ if(timer){ clearTimeout(timer); timer=null; } }
-
   zone.addEventListener("touchstart", armShow, {passive:true});
   zone.addEventListener("touchend", cancel);
   zone.addEventListener("touchmove", cancel);
   zone.addEventListener("mousedown", armShow);
   zone.addEventListener("mouseup", cancel);
   zone.addEventListener("mouseleave", cancel);
-
   btn.addEventListener("click", ()=>{
     if(confirm("Reset the hunt and start over from the beginning?")){
       try{ localStorage.removeItem(LS_KEY); }catch(e){}
@@ -667,59 +624,41 @@ function completionScreen(){
       render();
     }
   });
-  // tap elsewhere hides the reset button again
-  document.addEventListener("click", (e)=>{
-    if(e.target !== btn && !zone.contains(e.target)) btn.classList.remove("show");
-  });
+  document.addEventListener("click",(e)=>{ if(e.target!==btn && !zone.contains(e.target)) btn.classList.remove("show"); });
 })();
 
-// ============================================================
-//  CONFETTI  (gold burst on final completion — pure canvas)
-// ============================================================
+/* ============================================================
+   CONFETTI (gold burst on final completion)
+   ============================================================ */
 let confettiDone = false;
 function fireConfetti(){
-  if(confettiDone) return;
-  confettiDone = true;
+  if(confettiDone) return; confettiDone = true;
   const canvas = document.getElementById("confetti");
   const ctx = canvas.getContext("2d");
   canvas.style.display = "block";
-  function size(){ canvas.width = innerWidth; canvas.height = innerHeight; }
-  size();
+  canvas.width = innerWidth; canvas.height = innerHeight;
   const colors = ["#B08D3F","#d4b878","#1B2A4A","#F4F1E8","#8f7132"];
   const pieces = [];
   for(let i=0;i<120;i++){
-    pieces.push({
-      x: Math.random()*canvas.width,
-      y: -20 - Math.random()*canvas.height*0.4,
-      w: 6+Math.random()*6,
-      h: 8+Math.random()*8,
-      c: colors[Math.floor(Math.random()*colors.length)],
-      vy: 2+Math.random()*3.5,
-      vx: -1.5+Math.random()*3,
-      rot: Math.random()*Math.PI,
-      vr: -0.15+Math.random()*0.3
-    });
+    pieces.push({ x:Math.random()*canvas.width, y:-20-Math.random()*canvas.height*0.4,
+      w:6+Math.random()*6, h:8+Math.random()*8, c:colors[Math.floor(Math.random()*colors.length)],
+      vy:2+Math.random()*3.5, vx:-1.5+Math.random()*3, rot:Math.random()*Math.PI, vr:-0.15+Math.random()*0.3 });
   }
   let frames = 0;
   function tick(){
     frames++;
     ctx.clearRect(0,0,canvas.width,canvas.height);
     pieces.forEach(p=>{
-      p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.vy += 0.03;
-      ctx.save();
-      ctx.translate(p.x,p.y);
-      ctx.rotate(p.rot);
-      ctx.fillStyle = p.c;
-      ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
-      ctx.restore();
+      p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr; p.vy+=0.03;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+      ctx.fillStyle=p.c; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore();
     });
-    if(frames < 260){ requestAnimationFrame(tick); }
+    if(frames<260) requestAnimationFrame(tick);
     else{ canvas.style.display="none"; ctx.clearRect(0,0,canvas.width,canvas.height); }
   }
   tick();
 }
 
-// ---- go ----
 render();
 </script>
 </body>
