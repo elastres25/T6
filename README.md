@@ -5,7 +5,7 @@ Single file, no build step, no dependencies. **Many students can use it at the s
 each phone tracks its own progress, so there's no conflict no matter how many run it at once.
 
 At the start each student picks their **teacher** (Lastres, Mackle, Vazquez), their **block**
-(1–8), and types their **name**. Then they work through **5 Bible stations in a fixed order**;
+(1–8), and types their **name**. Then they work through **6 Bible stations in a fixed order**;
 each must be completed correctly before the next unlocks:
 
 1. **Find the verse** (reference + one-line context) in the Bible
@@ -14,13 +14,13 @@ each must be completed correctly before the next unlocks:
 4. **Justification** — after they get ACTS right, they type a one-sentence justification; submitting it **unlocks the next clue**
 
 Justifications and stats are saved on the phone and sent **once** to your Google Sheet when the
-student finishes all 5. Progress is saved (`localStorage`), so a refresh keeps their place.
+student finishes all 6. Progress is saved (`localStorage`), so a refresh keeps their place.
 
 ---
 
 ## ⚠ Before class — verify the gate words
 
-The 5 gate words must match your **class RSV-2CE Bible**. Open `index.html` and check
+The 6 gate words must match your **class RSV-2CE Bible**. Open `index.html` and check
 the `STATIONS` array near the top (clearly commented):
 
 Each gate word is now a word the student **copies straight from the verse** (the prompt quotes
@@ -32,7 +32,8 @@ the line with one word blanked out):
 | 2 · Moses | Exodus 32:11 | `Egypt` — "…out of the land of ____" | Supplication |
 | 3 · David | Psalm 51:1 | `mercy` — "Have ____ on me, O God…" | Contrition |
 | 4 · Jonah (keystone) | Jonah 2:9 | `Lord` — "Deliverance belongs to the ____" | Thanksgiving + Supplication |
-| 5 · The Shema | Deuteronomy 6:4 | `one` — "…the Lord is ____" | Adoration **or** "It doesn't fit neatly" |
+| 5 · Elijah | 1 Kings 19:12 | `voice` — "…a still small ____" | Adoration **or** "It doesn't fit neatly" |
+| 6 · The Shema | Deuteronomy 6:4 | `one` — "…the Lord is ____" | Adoration **or** "It doesn't fit neatly" |
 
 **Because the answer is copied from the exact wording, verify each against your RSV-2CE Bible** —
 if a word or phrasing differs, update the `gatePrompt` and `gateWord` in the settings block at
@@ -77,7 +78,7 @@ no account for students, no cost.** Do this once.
    - Save and re-deploy the app (re-push / re-upload the file).
 
 **5. Test it**
-   - Open the app on one phone, complete all 5 stations, and watch a row appear in the
+   - Open the app on one phone, complete all 6 stations, and watch a row appear in the
      **Responses** tab of your Sheet. Each student = one row, with their teacher, block,
      name, total time, and — for every station — their justification, ACTS answer, and how
      many attempts they took.
@@ -125,12 +126,12 @@ hides it automatically, so a mistake never breaks the station.
 
 **Easiest way (recommended): an `images/` folder in the repo**
 
-1. Find or make 5 images (JPG or PNG). Landscape works best; ~800–1200px wide keeps them sharp
+1. Find or make 6 images (JPG or PNG). Landscape works best; ~800–1200px wide keeps them sharp
    without being huge. Good free sources: [Wikimedia Commons](https://commons.wikimedia.org)
    (classic paintings of these scenes are public domain), [Unsplash](https://unsplash.com), or
    [Pexels](https://pexels.com). Keep each file under ~1 MB so phones load fast.
 2. In this repo, create a folder called **`images`** and put the files in it. Name them simply,
-   e.g. `abraham.jpg`, `moses.jpg`, `david.jpg`, `jonah.jpg`, `shema.jpg`.
+   e.g. `abraham.jpg`, `moses.jpg`, `david.jpg`, `jonah.jpg`, `elijah.jpg`, `shema.jpg`.
    (On GitHub you can do this in the browser: **Add file ▸ Upload files**, then type
    `images/` in front of the filename to create the folder.)
 3. In `index.html`, find each station's `image:""` line in the settings block and fill in the

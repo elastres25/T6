@@ -261,6 +261,17 @@ const STATIONS = [
     correct:"Thanksgiving + Supplication"
   },
   {
+    figure:"Elijah",
+    image:"",   // e.g. "images/elijah.jpg"
+    ref:"1 Kings 19:11–13",
+    context:"Not in the wind, the earthquake, or the fire — God comes in the silence.",
+    gatePrompt:"Copy the missing word (1 Kings 19:12): “…and after the fire a still small ____.”",
+    gateWord:"voice",
+    actsPrompt:"Elijah meets God not in the noise but in the silence — he stops, covers his face, and listens. Which is it closest to?",
+    options:["Adoration","Contrition","Thanksgiving","Supplication","It doesn’t fit neatly"],
+    correct:["Adoration","It doesn’t fit neatly"]
+  },
+  {
     figure:"The Shema",
     image:"",   // e.g. "images/shema.jpg"
     ref:"Deuteronomy 6:4–5",
@@ -341,7 +352,7 @@ function renderProgress(){
   }
   const pt = document.getElementById("progressText");
   if(!state.started) pt.textContent = "The Bible Hunt";
-  else if(allDone()) pt.textContent = "Complete — all 5 found";
+  else if(allDone()) pt.textContent = "Complete — all " + TOTAL + " found";
   else pt.textContent = "Station " + (state.current+1) + " of " + TOTAL;
 }
 
@@ -369,7 +380,7 @@ function startScreen(){
     <div class="center">
       <div class="intro-icon">📖</div>
       <h1 class="big-serif">The Bible Hunt</h1>
-      <p class="lead">Five people. Five prayers. Find each verse, prove you found it, and name the prayer.</p>
+      <p class="lead">${TOTAL} people. ${TOTAL} prayers. Find each verse, prove you found it, and name the prayer.</p>
     </div>
     <p class="field-label">Your teacher</p>
     <div class="pick-grid" id="teacherGrid">${teacherBtns}</div>
